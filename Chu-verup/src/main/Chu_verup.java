@@ -11,6 +11,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class Chu_verup extends JFrame{
+	private Image bufferImage;
+	private Graphics screenGraphics;
+	
 	private Image backgroundImage = new ImageIcon("src/image/mainScreen.png").getImage();
 	private Image meet = new ImageIcon("src/image/meet.png").getImage();
 	private Image mouse = new ImageIcon("src/image/mouse.png").getImage();
@@ -80,7 +83,14 @@ public class Chu_verup extends JFrame{
 		});
 		
 		init();
-		
+		while(true) {
+			try {
+				Thread.sleep(20);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			keyProcess();
+		}
 	}
 	
 	// 게임 시작할 때 초기화 하는 메소드
@@ -90,11 +100,27 @@ public class Chu_verup extends JFrame{
 		mouseX = (1200 - mouseWidth)/2;
 		mouseY = (900 - mouseHeight)/2;
 		
-		meetX = (int)(Math.random()*(1200-mouseWidth));
-		meetY = (int)(Math.random()*(900-mouseHeight));
+		meetX = (int)(Math.random()*(1201-mouseWidth));
+		meetY = (int)(Math.random()*(901-mouseHeight-50))+50;
 	}
 	
+	// up, down, left, right의 boolean값으로 mouse를 이동시키는 메소드
+	public void keyProcess() {
+		if(up && mouseY-3 > 50) mouseY -=3;
+		if(down && mouseY + mouseHeight + 3< 900) mouseY+=3;
+		if(left && mouseX -3 > 0) mouseX -=3;
+		if(right && mouseX + mouseWidth +3< 1000) mouseX+=3;
+	}
+	
+	// 화면 깜빡임을 위한 더블 버퍼링 기법 사용
 	public void paint(Graphics g) {
+		bufferImage = createImage(1200, 900);
+		screenGraphics = bufferImage.getGraphics();
+		screenDraw(screenGraphics);
+		g.drawImage(bufferImage, 0, 0, null);
+	}
+	
+	public void screenDraw(Graphics g) {
 		g.drawImage(backgroundImage, 0, 0, null);
 		g.drawImage(meet, meetX, meetY, null);
 		g.drawImage(mouse, mouseX, mouseX, null);
@@ -102,6 +128,7 @@ public class Chu_verup extends JFrame{
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.BOLD, 40));
 		g.drawString("Score : "+score , 900, 80);
+		this.repaint();
 	}
 	
 	
