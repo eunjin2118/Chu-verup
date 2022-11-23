@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -39,6 +40,45 @@ public class Chu_verup extends JFrame{
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		addKeyListener(new KeyAdapter() {
+			// 키를 눌렀을 때 실행 할 메소드
+			public void keyPressed(KeyEvent e) {
+				switch(e.getKeyCode()) {
+				case KeyEvent.VK_W:
+					up = true;
+					break;
+				case KeyEvent.VK_S:
+					down = true;
+					break;
+				case KeyEvent.VK_A:
+					left = true;
+					break;
+				case KeyEvent.VK_D:
+					right = true;
+					break;
+				}
+			}
+			
+			// 키를 눌렀을 때 실행 할 메소드
+			public void keyReleased(KeyEvent e) {
+				switch(e.getKeyCode()) {
+				case KeyEvent.VK_W:
+					up = false;
+					break;
+				case KeyEvent.VK_S:
+					down = false;
+					break;
+				case KeyEvent.VK_A:
+					left = false;
+					break;
+				case KeyEvent.VK_D:
+					right = false;
+					break;
+				}
+			}
+		});
+		
 		init();
 		
 	}
