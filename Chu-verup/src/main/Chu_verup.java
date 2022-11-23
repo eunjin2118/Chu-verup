@@ -15,39 +15,38 @@ public class Chu_verup extends JFrame{
 	private Graphics screenGraphics;
 	
 	private Image backgroundImage = new ImageIcon("src/image/mainScreen.png").getImage();
-	private Image meet = new ImageIcon("src/image/meet.png").getImage();
 	private Image mouse = new ImageIcon("src/image/mouse.png").getImage();
+	private Image meet = new ImageIcon("src/image/meet.png").getImage();
 	
-	// 입 좌표
+//	// 플레이어의 좌표
 	private int mouseX, mouseY;
-	// 입과 고기의 충돌 여부 판단을 위한 각 이미지의 크기
-	private int mouseWidth = meet.getWidth(null);
-	private int mouseHeight = meet.getHeight(null);
-	
-	// 고기 좌표
+	// 플레이어와 코인의 충돌 여부 판단을 위한 각 이미지의 크기
+	private int mouseWidth = mouse.getWidth(null);
+	private int mouseHeight = mouse.getHeight(null);
+
+	// 코인 좌표
 	private int meetX, meetY;
-	// 입과 고기의 충돌 여부 판단을 위한 각 이미지의 크기
+	// 플레이어와 코인의 충돌 여부 판단을 위한 각 이미지의 크기
 	private int meetWidth = meet.getWidth(null);
 	private int meetHeight = meet.getHeight(null);
-	
+		
 	// 점수
 	private int score;
 	
 	// 키보드의 움직임을 받는 변수
 	private boolean up, down, left, right;
-
+	
 	public Chu_verup() {
-		setTitle("고기 먹기 게임");
+		setTitle("코인 먹기 게임");
 		setVisible(true);
 		setSize(1200, 900);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		addKeyListener(new KeyAdapter() {
 			// 키를 눌렀을 때 실행 할 메소드
 			public void keyPressed(KeyEvent e) {
-				switch(e.getKeyCode()) {
+				switch(e.getKeyCode()){
 				case KeyEvent.VK_W:
 					up = true;
 					break;
@@ -62,10 +61,10 @@ public class Chu_verup extends JFrame{
 					break;
 				}
 			}
-			
-			// 키를 눌렀을 때 실행 할 메소드
+				
+			// 키를 뗏을 떄 실행할 메소드
 			public void keyReleased(KeyEvent e) {
-				switch(e.getKeyCode()) {
+				switch(e.getKeyCode()){
 				case KeyEvent.VK_W:
 					up = false;
 					break;
@@ -81,58 +80,72 @@ public class Chu_verup extends JFrame{
 				}
 			}
 		});
-		
 		init();
 		while(true) {
 			try {
 				Thread.sleep(20);
-			} catch (InterruptedException e) {
+			}catch(InterruptedException e) {
 				e.printStackTrace();
 			}
 			keyProcess();
+			crashCheck();
 		}
 	}
 	
-	// 게임 시작할 때 초기화 하는 메소드
+	// 게임시작할 때 초기화
 	public void init() {
-		score = 0; 
+		score = 0;
 		
 		mouseX = (1200 - mouseWidth)/2;
 		mouseY = (900 - mouseHeight)/2;
 		
+		//( 창의크기+1)-이미지의 길이
 		meetX = (int)(Math.random()*(1201-mouseWidth));
-		meetY = (int)(Math.random()*(901-mouseHeight-50))+50;
+		meetY = (int)(Math.random()*(901-mouseHeight-30))+30;	// 점수 초기화, 플레이어와 코인 위치 설정
+
 	}
 	
-	// up, down, left, right의 boolean값으로 mouse를 이동시키는 메소드
+	// up, down, left, right의 boolean값으로 플레이어를 이동시킬 메소드
 	public void keyProcess() {
-		if(up && mouseY-3 > 50) mouseY -=3;
-		if(down && mouseY + mouseHeight + 3< 900) mouseY+=3;
+		if(up && mouseY - 3 > 30) mouseY -=3;
+		if(down && mouseY + mouseHeight + 3 < 900) mouseY+=3;
 		if(left && mouseX -3 > 0) mouseX -=3;
-		if(right && mouseX + mouseWidth +3< 1000) mouseX+=3;
+		if(right && mouseX + mouseWidth + 3 < 1200) mouseX+=3;
 	}
 	
+	// 플레이어와 코인이 닿았을 때 점수 획득 메소드
+	public void crashCheck() {
+		if (mouseX + mouseWidth > meetX && meetX + meetWidth > mouseX && mouseY + mouseHeight > meetY && meetY + meetHeight > mouseY) {
+			score+=100;
+			meetX = (int)(Math.random()*(1201-mouseWidth));
+			meetY = (int)(Math.random()*(901-mouseHeight-30))+30;
+		}
+	}
+	
+
 	// 화면 깜빡임을 위한 더블 버퍼링 기법 사용
 	public void paint(Graphics g) {
+		// 화면 크기의 버퍼 이미지를 생성하고 getGraphics()를 통해 그래픽을 받아옴
 		bufferImage = createImage(1200, 900);
 		screenGraphics = bufferImage.getGraphics();
+		// 다시한번 호출하고 버퍼 이미지를 화면에 그려주기
 		screenDraw(screenGraphics);
-		g.drawImage(bufferImage, 0, 0, null);
+		g.drawImage(bufferImage, 0,0,null);
 	}
+	
+	
 	
 	public void screenDraw(Graphics g) {
 		g.drawImage(backgroundImage, 0, 0, null);
 		g.drawImage(meet, meetX, meetY, null);
-		g.drawImage(mouse, mouseX, mouseX, null);
+		g.drawImage(mouse, mouseX, mouseY, null);
 		// 점수
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.BOLD, 40));
-		g.drawString("Score : "+score , 900, 80);
+		g.drawString("SCORE : " + score, 30, 80);
 		this.repaint();
 	}
-	
-	
-	public static void main(String args[]) {
+	public static void main(String[] args) {
 		new Chu_verup();
 	}
 
