@@ -100,28 +100,31 @@ public class Chu_verup extends JFrame{
 		mouseY = (900 - mouseHeight)/2;
 		
 		//( 창의크기+1)-이미지의 길이
-		meetX = (int)(Math.random()*(1201-mouseWidth));
-		meetY = (int)(Math.random()*(901-mouseHeight-30))+30;	// 점수 초기화, 플레이어와 코인 위치 설정
-
+		meetX = (int)(Math.random()*(901-mouseWidth-250))+250;
+		meetY = (int)(Math.random()*(651-mouseHeight-190))+190;	// 점수 초기화, 플레이어와 코인 위치 설정
+									// 최대값 - 최소값))+최소값
+		System.out.println("고기 X좌표 : " + meetX + " 고기 Y좌표 : " + meetY);
 	}
 	
 	// up, down, left, right의 boolean값으로 플레이어를 이동시킬 메소드
 	public void keyProcess() {
-		if(up && mouseY - 3 > 30) mouseY -=5;
-		if(down && mouseY + mouseHeight + 3 < 900) mouseY+=5;
-		if(left && mouseX -3 > 0) mouseX -=5;
-		if(right && mouseX + mouseWidth + 3 < 1200) mouseX+=5;
+		if(up && mouseY - 3 > 180) mouseY -=5;
+		if(down && mouseY + mouseHeight + 3 < 800) mouseY+=5;
+		if(left && mouseX -3 > 220) mouseX -=5;
+		if(right && mouseX + mouseWidth + 3 < 1000) mouseX+=5;
 	}
 	
 	// 플레이어와 코인이 닿았을 때 점수 획득 메소드
 	public void crashCheck() {
-		if (mouseX + mouseWidth > meetX+50 && 
-				meetX + meetWidth > mouseX+50 && 
-				mouseY + mouseHeight > meetY+50 && 
-				meetY + meetHeight > mouseY+50) {
+		if (mouseX + mouseWidth > meetX+ 70 && 
+				meetX + meetWidth > mouseX+70 && 
+				mouseY + mouseHeight > meetY+70 && 
+				meetY + meetHeight > mouseY+70) {
 			score+=100;
-			meetX = (int)(Math.random()*(1201-mouseWidth));
-			meetY = (int)(Math.random()*(901-mouseHeight-30))+30;
+			
+			meetX = (int)(Math.random()*(901-mouseWidth-250))+250;
+			meetY = (int)(Math.random()*(651-mouseHeight-190))+190;
+			System.out.println("고기 X좌표 : " + meetX + " 고기 Y좌표 : " + meetY);
 		}
 	}
 	
