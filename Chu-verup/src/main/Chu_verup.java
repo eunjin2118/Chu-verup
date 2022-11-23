@@ -107,15 +107,18 @@ public class Chu_verup extends JFrame{
 	
 	// up, down, left, right의 boolean값으로 플레이어를 이동시킬 메소드
 	public void keyProcess() {
-		if(up && mouseY - 3 > 30) mouseY -=3;
-		if(down && mouseY + mouseHeight + 3 < 900) mouseY+=3;
-		if(left && mouseX -3 > 0) mouseX -=3;
-		if(right && mouseX + mouseWidth + 3 < 1200) mouseX+=3;
+		if(up && mouseY - 3 > 30) mouseY -=5;
+		if(down && mouseY + mouseHeight + 3 < 900) mouseY+=5;
+		if(left && mouseX -3 > 0) mouseX -=5;
+		if(right && mouseX + mouseWidth + 3 < 1200) mouseX+=5;
 	}
 	
 	// 플레이어와 코인이 닿았을 때 점수 획득 메소드
 	public void crashCheck() {
-		if (mouseX + mouseWidth > meetX && meetX + meetWidth > mouseX && mouseY + mouseHeight > meetY && meetY + meetHeight > mouseY) {
+		if (mouseX + mouseWidth > meetX+50 && 
+				meetX + meetWidth > mouseX+50 && 
+				mouseY + mouseHeight > meetY+50 && 
+				meetY + meetHeight > mouseY+50) {
 			score+=100;
 			meetX = (int)(Math.random()*(1201-mouseWidth));
 			meetY = (int)(Math.random()*(901-mouseHeight-30))+30;
@@ -142,7 +145,7 @@ public class Chu_verup extends JFrame{
 		// 점수
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.BOLD, 40));
-		g.drawString("SCORE : " + score, 30, 80);
+		g.drawString("SCORE : " + score, 900, 80);
 		this.repaint();
 	}
 	public static void main(String[] args) {
