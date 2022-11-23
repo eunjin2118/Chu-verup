@@ -37,7 +37,7 @@ public class Chu_verup extends JFrame{
 	private boolean up, down, left, right;
 	
 	public Chu_verup() {
-		setTitle("코인 먹기 게임");
+		setTitle("고기 먹기 게임");
 		setVisible(true);
 		setSize(1200, 900);
 		setLocationRelativeTo(null);
