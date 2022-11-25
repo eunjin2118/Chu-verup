@@ -23,8 +23,9 @@ class Start extends JFrame {
 	
 	// 버튼 이미지
 	ImageIcon startBtnImage = new ImageIcon("src/image/pepper.png");
-	
+	ImageIcon explainBtnImage = new ImageIcon("src/image/lettuce.png");
 	JButton startBtn = new JButton(startBtnImage);
+	JButton explainBtn = new JButton(explainBtnImage);
 	
 	Start() {
 		// 뒷 배경
@@ -45,6 +46,12 @@ class Start extends JFrame {
 		startBtn.setContentAreaFilled(false);
 		startBtn.setFocusPainted(false);
 		startBtn.setOpaque(false);
+		explainBtn.setBounds(0, 630, explainBtnImage.getIconWidth(), explainBtnImage.getIconHeight());
+		explainBtn.setBorderPainted(false);
+		explainBtn.setContentAreaFilled(false);
+		explainBtn.setFocusPainted(false);
+		explainBtn.setOpaque(false);
+		panel.add(explainBtn);
 		panel.add(startBtn);
 		setSize(1200, 900);
 		add(panel);
