@@ -1,24 +1,28 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 
 public class Chu_verup extends JFrame{
 	private Image bufferImage;
 	private Graphics screenGraphics;
 	
-	private Image backgroundImage = new ImageIcon("src/image/mainScreen.png").getImage();
+	Image backgroundImage = new ImageIcon("src/image/mainScreen.png").getImage();
 	private Image mouse = new ImageIcon("src/image/mouse.png").getImage();
 	private Image meet = new ImageIcon("src/image/meet.png").getImage();
 	
-//	// 플레이어의 좌표
+	// 플레이어의 좌표
 	private int mouseX, mouseY;
 	// 플레이어와 코인의 충돌 여부 판단을 위한 각 이미지의 크기
 	private int mouseWidth = mouse.getWidth(null);
@@ -38,11 +42,25 @@ public class Chu_verup extends JFrame{
 	
 	public Chu_verup() {
 		setTitle("고기 먹기 게임");
-		setVisible(true);
+		JPanel panel = new JPanel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				screenDraw(g);
+			}
+		};
+		
 		setSize(1200, 900);
-		setLocationRelativeTo(null);
-		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		add(panel);
+		
+		Dimension frameSize = getSize();
+        Dimension windowSize = Toolkit.getDefaultToolkit().getScreenSize();
+        setLocation((windowSize.width - frameSize.width) / 2,
+                (windowSize.height - frameSize.height) / 2); //화면 중앙에 띄우기
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setVisible(true);
+		
 		addKeyListener(new KeyAdapter() {
 			// 키를 눌렀을 때 실행 할 메소드
 			public void keyPressed(KeyEvent e) {
@@ -81,15 +99,15 @@ public class Chu_verup extends JFrame{
 			}
 		});
 		init();
-		while(true) {
-			try {
-				Thread.sleep(20);
-			}catch(InterruptedException e) {
-				e.printStackTrace();
-			}
+//		while(true) {
+//			try {
+//				Thread.sleep(20);
+//			}catch(InterruptedException e) {
+//				e.printStackTrace();
+//			}
 			keyProcess();
 			crashCheck();
-		}
+//		}
 	}
 	
 	// 게임시작할 때 초기화
