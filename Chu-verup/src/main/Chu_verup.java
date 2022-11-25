@@ -40,8 +40,8 @@ public class Chu_verup extends JFrame{
 	// 키보드의 움직임을 받는 변수
 	private boolean up, down, left, right;
 	
-	public Chu_verup() {
-		setTitle("고기 먹기 게임");
+	Chu_verup() {
+		setTitle("게임 화면");
 		JPanel panel = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
@@ -61,7 +61,7 @@ public class Chu_verup extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
 		
-		addKeyListener(new KeyAdapter() {
+        addKeyListener(new KeyAdapter() {
 			// 키를 눌렀을 때 실행 할 메소드
 			public void keyPressed(KeyEvent e) {
 				switch(e.getKeyCode()){
@@ -105,9 +105,10 @@ public class Chu_verup extends JFrame{
 //			}catch(InterruptedException e) {
 //				e.printStackTrace();
 //			}
-			keyProcess();
-			crashCheck();
+//			keyProcess();
+//			crashCheck();
 //		}
+		
 	}
 	
 	// 게임시작할 때 초기화
@@ -167,7 +168,7 @@ public class Chu_verup extends JFrame{
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.BOLD, 40));
 		g.drawString("SCORE : " + score, 900, 80);
-		this.repaint();
+		repaint();
 	}
 	public static void main(String[] args) {
 		new Chu_verup();
