@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
 public class Chu_verup extends JFrame{
@@ -39,6 +40,8 @@ public class Chu_verup extends JFrame{
 	
 	// 키보드의 움직임을 받는 변수
 	private boolean up, down, left, right;
+	
+	private Timer timer;
 	
 	Chu_verup() {
 		setTitle("게임 화면");
@@ -99,23 +102,18 @@ public class Chu_verup extends JFrame{
 			}
 		});
 		init();
-//		while(true) {
-//			try {
-//				Thread.sleep(20);
-//			}catch(InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//			keyProcess();
-//			crashCheck();
-//		}
 		
+		timer = new Timer(10, (e) -> {
+			keyProcess();
+		});
+		
+		timer.start();
 	}
 	
 	// 게임시작할 때 초기화
 	public void init() {
 		score = 0;
 		
-		mouseX = (1200 - mouseWidth)/2;
 		mouseY = (900 - mouseHeight)/2;
 		
 		//( 창의크기+1)-이미지의 길이
@@ -131,6 +129,8 @@ public class Chu_verup extends JFrame{
 		if(down && mouseY + mouseHeight + 3 < 800) mouseY+=5;
 		if(left && mouseX -3 > 220) mouseX -=5;
 		if(right && mouseX + mouseWidth + 3 < 1000) mouseX+=5;
+		
+		crashCheck();
 	}
 	
 	// 플레이어와 코인이 닿았을 때 점수 획득 메소드
