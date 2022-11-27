@@ -57,7 +57,11 @@ public class Chu_verup extends JFrame{
 	private Timer gameOverTimer;
 	private int time = 30;
 	
-	Chu_verup() {
+	String nickname;
+	
+	Chu_verup(String nickname) {
+		this.nickname = nickname;
+		
 		setTitle("게임 화면");
 		JPanel panel = new JPanel() {
 			@Override
@@ -123,7 +127,7 @@ public class Chu_verup extends JFrame{
 		
 		gameOverTimer = new Timer(1000, (e) -> {
 			if(time == 0) {
-				new ExplainFrame();
+				new Start();
 				setVisible(false);
 			}
 			time--;
@@ -203,10 +207,12 @@ public class Chu_verup extends JFrame{
 		g.setFont(new Font("Arial", Font.BOLD, 40));
 		g.drawString("SCORE : " + score, 900, 80);
 		g.drawString("TIMER : " + time, 100, 80);
+		g.drawString("TIMER : " + time, 100, 80);
+		g.drawString("NAME : " + nickname, 400, 80);
 		repaint();
 	}
 	public static void main(String[] args) {
-		new Chu_verup();
+		
 	}
 
 }
