@@ -16,7 +16,7 @@ import javax.swing.WindowConstants;
 public class ExplainFrame extends JFrame{
 	ImageIcon startBtnImage = new ImageIcon("src/image/pepper.png");
 	JButton startBtn = new JButton(startBtnImage);
-	
+	String nickname=" ";
 	public ExplainFrame() {
 		
 		JPanel panel = new JPanel() {
@@ -53,7 +53,7 @@ public class ExplainFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Chu_verup();
+				new InputNicknameFrame();
 				setVisible(false);
 				
 			}
