@@ -22,6 +22,7 @@ public class Chu_verup extends JFrame{
 	Image backgroundImage = new ImageIcon("src/image/mainScreen.png").getImage();
 	private Image mouse = new ImageIcon("src/image/mouse.png").getImage();
 	private Image meet = new ImageIcon("src/image/meet.png").getImage();
+	private Image burntMeet = new ImageIcon("src/image/burntmeet.png").getImage();
 	
 	// 입의 좌표
 	private int mouseX = 600;
@@ -176,6 +177,7 @@ public class Chu_verup extends JFrame{
 	public void screenDraw(Graphics g) {
 		g.drawImage(backgroundImage, 0, 0, null);
 		g.drawImage(meet, meetX, meetY, null);
+		g.drawImage(burntMeet, 200, 500, null);
 		g.drawImage(mouse, mouseX, mouseY, null);
 		// 점수
 		g.setColor(Color.WHITE);
