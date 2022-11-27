@@ -23,15 +23,17 @@ public class Chu_verup extends JFrame{
 	private Image mouse = new ImageIcon("src/image/mouse.png").getImage();
 	private Image meet = new ImageIcon("src/image/meet.png").getImage();
 	
-	// 플레이어의 좌표
-	private int mouseX, mouseY;
-	// 플레이어와 코인의 충돌 여부 판단을 위한 각 이미지의 크기
+	// 입의 좌표
+	private int mouseX = 600;
+	private int mouseY = 450;
+	// 입과 고기의 충돌 여부 판단을 위한 각 이미지의 크기
 	private int mouseWidth = mouse.getWidth(null);
 	private int mouseHeight = mouse.getHeight(null);
 
-	// 코인 좌표
-	private int meetX, meetY;
-	// 플레이어와 코인의 충돌 여부 판단을 위한 각 이미지의 크기
+	// 고기 좌표
+	private int meetX = (int)(Math.random()*(901-mouseWidth-250))+250;
+	private int meetY = (int)(Math.random()*(651-mouseHeight-190))+190;
+	// 입과 고기의 충돌 여부 판단을 위한 각 이미지의 크기
 	private int meetWidth = meet.getWidth(null);
 	private int meetHeight = meet.getHeight(null);
 		
@@ -42,6 +44,8 @@ public class Chu_verup extends JFrame{
 	private boolean up, down, left, right;
 	
 	private Timer timer;
+	private Timer gameOverTimer;
+	private int time = 3;
 	
 	Chu_verup() {
 		setTitle("게임 화면");
@@ -101,12 +105,21 @@ public class Chu_verup extends JFrame{
 				}
 			}
 		});
-		init();
+		
 		
 		timer = new Timer(10, (e) -> {
 			keyProcess();
 		});
 		
+		gameOverTimer = new Timer(1000, (e) -> {
+			if(time == 0) {
+				new ExplainFrame();
+				setVisible(false);
+			}
+			time--;
+		});
+		
+		gameOverTimer.start();
 		timer.start();
 	}
 	
@@ -168,6 +181,7 @@ public class Chu_verup extends JFrame{
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Arial", Font.BOLD, 40));
 		g.drawString("SCORE : " + score, 900, 80);
+		g.drawString("TIMER : " + time, 100, 80);
 		repaint();
 	}
 	public static void main(String[] args) {
