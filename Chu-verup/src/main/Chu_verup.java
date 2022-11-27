@@ -8,6 +8,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -37,6 +38,14 @@ public class Chu_verup extends JFrame{
 	// 입과 고기의 충돌 여부 판단을 위한 각 이미지의 크기
 	private int meetWidth = meet.getWidth(null);
 	private int meetHeight = meet.getHeight(null);
+	
+	// 탄고기 좌표
+	private int burntmeetX = (int)(Math.random()*(901-mouseWidth-250))+250;
+	private int burntmeetY = (int)(Math.random()*(651-mouseWidth-190))+190;
+
+	// 입과 탄고기의 충돌 여부 판단을 위한 각 이미지의 크기
+	private int burntmeetWidth = burntMeet.getWidth(null);
+	private int burntmeetHeight = burntMeet.getHeight(null);
 		
 	// 점수
 	private int score;
@@ -46,7 +55,7 @@ public class Chu_verup extends JFrame{
 	
 	private Timer timer;
 	private Timer gameOverTimer;
-	private int time = 3;
+	private int time = 30;
 	
 	Chu_verup() {
 		setTitle("게임 화면");
@@ -159,6 +168,16 @@ public class Chu_verup extends JFrame{
 			meetY = (int)(Math.random()*(651-mouseHeight-190))+190;
 			System.out.println("고기 X좌표 : " + meetX + " 고기 Y좌표 : " + meetY);
 		}
+		
+		if (mouseX + mouseWidth > burntmeetX+ 70 && 
+				burntmeetX + meetWidth > mouseX+70 && 
+				mouseY + mouseHeight > burntmeetY+70 && 
+				burntmeetY + meetHeight > mouseY+70) {
+			score-=30;
+			
+			burntmeetX = (int)(Math.random()*(901-mouseWidth-250))+250;
+			burntmeetY = (int)(Math.random()*(651-mouseHeight-190))+190;
+		}
 	}
 	
 
@@ -177,7 +196,7 @@ public class Chu_verup extends JFrame{
 	public void screenDraw(Graphics g) {
 		g.drawImage(backgroundImage, 0, 0, null);
 		g.drawImage(meet, meetX, meetY, null);
-		g.drawImage(burntMeet, 200, 500, null);
+		g.drawImage(burntMeet, burntmeetX, burntmeetY, null);
 		g.drawImage(mouse, mouseX, mouseY, null);
 		// 점수
 		g.setColor(Color.WHITE);
