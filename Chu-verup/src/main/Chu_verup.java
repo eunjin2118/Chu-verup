@@ -55,7 +55,7 @@ public class Chu_verup extends JFrame{
 	
 	private Timer timer;
 	private Timer gameOverTimer;
-	private int time = 30;
+	private int time = 10;
 	
 	String nickname;
 	
@@ -127,7 +127,7 @@ public class Chu_verup extends JFrame{
 		
 		gameOverTimer = new Timer(1000, (e) -> {
 			if(time == 0) {
-				new Start();
+				new Rank();
 				setVisible(false);
 			}
 			time--;
