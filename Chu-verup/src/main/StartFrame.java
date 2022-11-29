@@ -70,7 +70,7 @@ class Start extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new Chu_verup(getTitle());
+				new ExplainFrame();
 				setVisible(false);
 
 			}
