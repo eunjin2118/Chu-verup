@@ -51,6 +51,7 @@ public class InputNicknameFrame extends JFrame {
 
 		panel.add(new JLabel("  이름 :"));
 		name = new JTextField(20);
+		System.out.println("inputname" + name.getText());
 		name.setBounds(162, 450, 901, 100);
 
 		bt = new JButton(new ImageIcon("src/image/ok.png"));
