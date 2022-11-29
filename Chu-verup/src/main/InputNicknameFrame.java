@@ -9,6 +9,8 @@ import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -51,17 +53,38 @@ public class InputNicknameFrame extends JFrame {
 
 		panel.add(new JLabel("  이름 :"));
 		name = new JTextField(20);
+		name.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				JTextField src = (JTextField)e.getSource();
+				if(src.getText().length()>=6)e.consume();
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		System.out.println("inputname" + name.getText());
-		name.setBounds(162, 450, 901, 100);
+		name.setBounds(162, 475, 901, 100);
 
 		bt = new JButton(new ImageIcon("src/image/ok.png"));
 		bt.setBounds(970, 700, 200, 150);
 
+		bt.setBorderPainted(false);
 		bt.setContentAreaFilled(false);
 		bt.setFocusPainted(false);
 		bt.setOpaque(false);
 		bt.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new Chu_verup(name.getText());

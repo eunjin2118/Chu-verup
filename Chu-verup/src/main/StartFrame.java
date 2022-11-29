@@ -70,7 +70,7 @@ class Start extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new ExplainFrame();
+				new InputNicknameFrame();
 				setVisible(false);
 
 			}
